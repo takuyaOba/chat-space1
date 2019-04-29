@@ -46,19 +46,3 @@
 ### Association
 - belongs_to :group
 - belongs_to :user
-
-chat-space
-haml sass
-回答のまま作成中
-回答の解説
-
-部分テンプレートの箇所でエラーが起きており、
-部分テンプレートの箇所で理解の進まない箇所があり解説を頂きたい
-
-application.html.haml
-render partial: 'layouts/flash'
-
-partialで指定する中身の　'layouts/flash' が何を行なっているのか各ファイルをみても
-なぜlayoutsを指定しているのか、後ろのflashは何をしているのか
-pictweetの部分テンプレートのところを見直しても解決できない
-
