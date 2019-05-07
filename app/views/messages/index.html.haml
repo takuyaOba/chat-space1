@@ -1,7 +1,5 @@
 .wrapper
-
-  = render 'shared/side_bar'
-
+  =render partial: "shared/side_bar"
   .chat
     .header
       .left-header
@@ -13,7 +11,7 @@
             - @group.group_users.each do |group_user|
               = group_user.user.name
       .right-header
-        .right-header__button
+        %a.right-header__button
           = link_to edit_group_path(@group.id) do
             Edit
     .messages
