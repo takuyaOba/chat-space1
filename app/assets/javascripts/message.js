@@ -37,11 +37,29 @@ $(function(){
         $(".form__submit").prop( "disabled", false);
         $("html,body").animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
         $("form")[0].reset();
-
-
       })
       .fail(function(){
         alert('error');
       })
+
+      var reloadMessages = function() {
+        last_message_id = "@message.id"
+        $.ajax({
+          url: href,
+          type: 'get',
+          dataType: 'json',
+          data: {id: last_message_id}
+        })
+        .done(function(messages) {
+          console.log('success');
+        })
+        .fail(function() {
+          console.log('error');
+        });
+      };
+    
+      
+    
+
   })
 });

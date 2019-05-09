@@ -48,39 +48,68 @@
 - belongs_to :user
 
 chat-space
-メッセージ機能を非同期通信化しよう
-9. HTMLを追加した分、メッセージ画面を下にスクロールする
+自動更新機能を実装
 
-・できている
-非同期通信は出来ている
-画面がリロードせずに投稿できている
-テキストのみ/画像のみ/画像とテキスト、それぞれでエラーが出ずに投稿ができる
-連続での投稿が可能
-日時表記は適切
-
+表示されているメッセージのHTMLにid情報を追加
+apiディレクトリおよびコントローラを作成
+ルーティングを追加
+messages/index.json.jbuilder
+messages/create.json.jbuilder
+message.js編集
 
 
-・問題点
-投稿成功時に、animateメソッドの動作を期待するが、動作しない
-
-エラーもなく、複数検索を行いanimateメソッドの記述には恐らく文法ミスはないと思われる
-どこが原因でスクロールしないのか分からない
-
-他に試したこと
-
-インデントを揃える
-
-gem 'turbolinks', '~> 5' の記載があるので、
-$(document).on('turbolinks:load', function() { });を試すが効果を感じられない
-
-ヘッダの記述を　true　から　reload　に変更　→　変化なし
-= javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-
-あまり有効な記述が見つからない
-
-果たしてgemのせいなのか
-
-そもそもgemを削除してしまえば読み込むのか
-削除して良いか否か
 
 
+var buildMessageHTML = function(message) {
+      if (message.content && message.image.url) {
+        var html =  `<div class="message" data-id="message.id">
+                      <div class="upper-message">
+                        <div class="upper-message__user-name">
+                          message.user_name
+                        </div>
+                        <div class="upper-message__date">
+                          message.created_at
+                        </div>
+                      </div>
+                      <div class="lower-message">
+                        <p class="lower-message__content">
+                          message.content
+                        </p>
+                        <img src="message.image.url"  class="lower-message__image" >
+                      </div>
+                    </div>`
+      } else if (message.content) {
+        //同様に、data-idが反映されるようにしている
+        var html = `<div class="message" data-id='message.id'>
+                      <div class="upper-message">
+                        <div class="upper-message__user-name">
+                          message.user_name
+                        </div>
+                        <div class="upper-message__date">
+                          message.created_at
+                        </div>
+                      </div>
+                      <div class="lower-message">
+                        <p class="lower-message__content">
+                          message.content
+                        </p>
+                      </div>
+                    </div>`
+      } else if (message.image.url) {
+        //同様に、data-idが反映されるようにしている
+        var html =  `<div class="message" data-id='message.id '>
+                      <div class="upper-message">
+                        <div class="upper-message__user-name">
+                          message.user_name
+                        </div>
+                        <div class="upper-message__date">
+                          message.created_at
+                        </div>
+                      </div>
+                      <div class="lower-message">
+                        <img src="' + message.image.url + '" class="lower-message__image" >
+                      </div>
+                    </div>`
+      };
+      return html;
+    };
