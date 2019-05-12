@@ -1,7 +1,7 @@
 .wrapper
   =render partial: "shared/side_bar"
   .chat
-    .header
+    .header{"data-group.id": @group.id}
       .left-header
         .left-header__title
           = @group.name

@@ -37,11 +37,40 @@ $(function(){
         $(".form__submit").prop( "disabled", false);
         $("html,body").animate({scrollTop: $('.messages')[0].scrollHeight}, 'fast');
         $("form")[0].reset();
+        
 
 
       })
       .fail(function(){
         alert('error');
       })
-  })
-});
+  });
+      var reloadMessages = function() {
+        //カスタムデータ属性を利用し、ブラウザに表示されている最新メッセージのidを取得
+        var last_message_id = $('.message').last().attr("data-messageId");
+        var groupId = $('.message').attr("data-groupId");
+        $.ajax({
+          //ルーティングで設定した通りのURLを指定
+          url: '/groups/' + groupId + '/api/messages',
+          //ルーティングで設定した通りhttpメソッドをgetに指定
+          type: 'get',
+          dataType: 'json',
+          //dataオプションでリクエストに値を含める
+          data: {id: last_message_id}
+        })
+        .done(function(data) {
+          console.log("sucsses");
+          data.forEach(function(message){
+          var HTML = buildHTML(message);
+            $('.messages').append(HTML);
+            $(".messages").animate({scrollTop: $(".messages")[0].scrollHeight+100}, "fast");
+          })
+        })
+        .fail(function() {
+          console.log('error');
+        });
+        
+      };
+      setInterval(reloadMessages, 5000);
+})
+
