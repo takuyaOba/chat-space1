@@ -1,8 +1,8 @@
 $(document).on('turbolinks:load', function(){
   $(function(){
     function buildHTML(message){
-          var imagehtml = message.image == null ? "" : `<img src="${message.image}" class="lower-message__image">`
-      if(message.content && message.image) {
+          var imagehtml = message.image == null ? "" : `<img src="${message.image}">`
+          var contenthtml = message.content == null ? "" : `${message.content}`
             var html = `<div class="message" data-messageId='${message.id}' data-groupId="${message.group_id}">
                           <div class="upper-message">
                             <div class="upper-message__user-name">
@@ -13,45 +13,12 @@ $(document).on('turbolinks:load', function(){
                             </div>
                           </div>
                           <div class="lower-message">
+                            ${contenthtml}
                             <p class="lower-message__content">
-                            ${message.content}
-                            </p>
                             ${imagehtml}
+                            </p>
                           </div>
                         </div>`
-      } else if(message.image) {
-        var html =  `<div class="message" data-messageId='${message.id}' data-groupId="${message.group_id}">
-                        <div class="upper-message">
-                          <div class="upper-message__user-name">
-                            ${message.name}
-                          </div>
-                          <div class="upper-message__date">
-                            ${message.time}
-                          </div>
-                        </div>
-                        <div class="lower-message">
-                          <p class="lower-message__content">
-                            ${imagehtml}
-                          </p>
-                        </div>  
-                    </div>`
-      } else if (message.content) {
-        var html =  `<div class="message" data-messageId='${message.id}' data-groupId="${message.group_id}">
-                      <div class="upper-message">
-                        <div class="upper-message__user-name">
-                        ${message.name}
-                        </div>
-                        <div class="upper-message__date">
-                          ${message.time}
-                        </div>
-                      </div>
-                      <div class="lower-message">
-                        <p class="lower-message__content">
-                          ${message.content}
-                        </p>
-                      </div>
-                    </div>`
-      };
       return html;
     };
     
