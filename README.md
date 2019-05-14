@@ -48,38 +48,29 @@
 - belongs_to :user
 
 chat-space
-自動更新機能を実装
 
-・現在
-表示されているメッセージのHTMLにid情報を追加
-メッセージを更新するためのアクションを実装
-apiディレクトリおよびコントローラを作成
-追加したアクションを動かすためのルーティングを実装
-app/views/api/messages/index.json.jbuilder 追記
-views/messages/create.json.jbuilder 追記
-message.js 編集
+css
 
-・困ってる事
+問題
+投稿を追加すると無限に下にいけてしまう
+画面固定でスクロールさせたい
 
-$.ajax 内の url: が上手く繋がらない
-ルーティングエラー
+仮説
+揃えるには
+overflow:hidden;
+padding-bottom: 10000px;
+margin-bottom: -10000px;
+と検索が出てきたが
+引き伸ばしたい訳ではない
 
-・仮説と検証
+違った
+position:sticky;
 
-コンソールで　rake routes　から /groups/:group_id/api/messages(.:format) を使うと仮説を立てる
-  #{group_id} に書き換える？
-  どうやって値を渡すのか
-  コントローラから渡す　上手くいかない？
-  jbuilderから引数の形で渡せる？　doneに返すから無理？
-  そもそもurl:の記述がおかしい？　別回答が浮かばない
-  全然違う事してる？
-
-複数回見直しているが改善策が浮かばない
+概念が理解できない
 
 
-
-1.表示されているメッセージのHTMLにid情報を追加
-2.メッセージを更新するためのアクションを実装
-3.追加したアクションを動かすためのルーティングを実装
-4.追加したアクションをリクエストするよう実装
-
+box-sizing: border-box;
+    height: 100px;
+    padding: 0 40px;
+    position: fixed;
+    width:calc(100% - 300px);
